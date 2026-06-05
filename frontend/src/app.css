@@ -1,0 +1,279 @@
+@import 'tailwindcss';
+
+/* ----------------------------------------------------------------------
+ * UtilityApp design tokens
+ * ---------------------------------------------------------------------- */
+@theme {
+  --color-Utility-orange: #ee7a23;
+  --color-Utility-orange-dark: #c95f0e;
+  --color-Utility-orange-soft: #fef1e6;
+  --color-Utility-blue: #1b3a6b;
+  --color-Utility-blue-soft: #e8eef7;
+
+  --color-ink-900: #0e1116;
+  --color-ink-700: #2a2f3a;
+  --color-ink-500: #5b6373;
+  --color-ink-300: #b7bcc7;
+  --color-ink-100: #eef0f4;
+
+  --color-bg: #f7f8fa;
+  --color-surface: #ffffff;
+
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-warning: #f59e0b;
+  --color-warning-soft: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, ui-sans-serif,
+    system-ui, sans-serif;
+}
+
+:root {
+  --shadow-card: 0 1px 2px rgb(15 17 22 / 4%), 0 4px 16px rgb(15 17 22 / 6%);
+  --shadow-pop: 0 8px 32px rgb(238 122 35 / 18%);
+  --shadow-tab: 0 -4px 24px rgb(15 17 22 / 6%);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-ink-900);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* App container — caps the layout to a phone-shaped column on desktop. */
+.app-shell {
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  min-height: 100dvh;
+  background: var(--color-bg);
+  position: relative;
+  isolation: isolate;
+}
+
+/* Numerics — bill totals, kWh values. Tabular figures keep the columns
+ * tidy when amounts are stacked. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'lnum' 1;
+}
+
+/* Cards & shadows */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.card-press {
+  transition:
+    transform 120ms ease-out,
+    box-shadow 120ms ease-out;
+}
+.card-press:active {
+  transform: scale(0.985);
+}
+
+/* Primary CTA */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 52px;
+  padding-inline: 1.5rem;
+  background: var(--color-Utility-orange);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition:
+    background 120ms ease,
+    transform 100ms ease;
+}
+.btn-primary:hover {
+  background: var(--color-Utility-orange-dark);
+}
+.btn-primary:active {
+  transform: scale(0.985);
+  background: var(--color-Utility-orange-dark);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 48px;
+  padding-inline: 1.25rem;
+  background: var(--color-ink-100);
+  color: var(--color-ink-900);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+/* Pills */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.pill-orange {
+  background: var(--color-Utility-orange-soft);
+  color: var(--color-Utility-orange-dark);
+}
+.pill-blue {
+  background: var(--color-Utility-blue-soft);
+  color: var(--color-Utility-blue);
+}
+.pill-success {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+.pill-warning {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+.pill-danger {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+.pill-muted {
+  background: var(--color-ink-100);
+  color: var(--color-ink-500);
+}
+
+/* Skeleton shimmer — used everywhere we fetch async data. */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-ink-100) 0%,
+    rgb(255 255 255 / 60%) 50%,
+    var(--color-ink-100) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Bottom-sheet for "Pay Now" confirmation — slide-up with backdrop. */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(15 17 22 / 36%);
+  z-index: 50;
+  animation: backdrop-in 200ms ease-out;
+}
+.sheet {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  background: var(--color-surface);
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
+  padding: 1.25rem 1.25rem calc(1.5rem + var(--safe-bottom));
+  z-index: 51;
+  animation: sheet-up 280ms cubic-bezier(0.18, 0.9, 0.32, 1);
+  box-shadow: var(--shadow-tab);
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fade-up 200ms ease-out;
+}
+
+/* Toast — top-right slide in */
+.toast {
+  animation: toast-in 280ms cubic-bezier(0.18, 0.9, 0.32, 1);
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Hide scrollbar on horizontal carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Reduce motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

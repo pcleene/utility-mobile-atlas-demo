@@ -1,0 +1,19 @@
+{
+  "_comment": "Atlas Vector Search index using AutoEmbed (ADR-032 pattern). Atlas reads the leaf string at `embed_source.text` and produces 1024-d vectors via the project-level Voyage credential — application code does NOT call Voyage. PREREQUISITE: in Atlas, go to Project Settings > AI Provider Integrations and connect Voyage with the API key from .env (VOYAGE_API_KEY). Apply via the seed script, the Atlas UI (Atlas Vector Search > Create > JSON), or `atlas search indexes create --collection support_conversations --file support_autoembed_idx.json --type vectorSearch --clusterName <cluster>`.",
+  "name": "support_autoembed_idx",
+  "type": "vectorSearch",
+  "collectionName": "support_conversations",
+  "database": "UtilityApp",
+  "definition": {
+    "fields": [
+      {
+        "type": "autoEmbed",
+        "path": "embed_source.text",
+        "modality": "text",
+        "model": "voyage-4-large"
+      },
+      { "type": "filter", "path": "category" },
+      { "type": "filter", "path": "lang" }
+    ]
+  }
+}

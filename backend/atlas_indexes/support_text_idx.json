@@ -1,0 +1,25 @@
+{
+  "_comment": "Atlas Search (lexical) index for support_conversations. Apply via the seed script (createSearchIndexes), the Atlas UI (Search > Create Index > JSON Editor), or Atlas CLI: `atlas search indexes create --collection support_conversations --file support_text_idx.json --clusterName <cluster>`. Index name MUST be `support_text_idx` to match `IDX_SUPPORT_SEARCH` in app/db.py.",
+  "name": "support_text_idx",
+  "collectionName": "support_conversations",
+  "database": "UtilityApp",
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "title": [
+        { "type": "string" },
+        { "type": "autocomplete" }
+      ],
+      "summary": { "type": "string" },
+      "category": { "type": "token" },
+      "lang": { "type": "token" },
+      "resolution_steps": { "type": "string" },
+      "embed_source": {
+        "type": "document",
+        "fields": {
+          "text": { "type": "string" }
+        }
+      }
+    }
+  }
+}
